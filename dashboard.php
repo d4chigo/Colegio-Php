@@ -23,46 +23,7 @@ $stats['cobros_pendientes'] = $conn->query("SELECT COUNT(*) FROM cobros WHERE es
     <title>Dashboard - Sistema de Gestión Escolar</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <style>
-        body {
-            background-color: #f8f9fa;
-        }
-        .navbar {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        }
-        .card {
-            border: none;
-            border-radius: 15px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            transition: transform 0.3s ease;
-        }
-        .card:hover {
-            transform: translateY(-5px);
-        }
-        .stat-card {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-        }
-        .sidebar {
-            background: white;
-            min-height: calc(100vh - 76px);
-            box-shadow: 2px 0 5px rgba(0,0,0,0.1);
-        }
-        .nav-link {
-            color: #495057;
-            padding: 12px 20px;
-            border-radius: 8px;
-            margin: 2px 0;
-        }
-        .nav-link:hover {
-            background-color: #e9ecef;
-            color: #667eea;
-        }
-        .nav-link.active {
-            background-color: #667eea;
-            color: white;
-        }
-    </style>
+    <link href="assets/css/style.css" rel="stylesheet">
 </head>
 <body>
     <!-- Navbar -->

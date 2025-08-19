@@ -1,0 +1,458 @@
+:root {
+    --school-blue: #2E86AB;
+    --school-green: #28a745;
+    --school-orange: #F18F01;
+    --school-red: #dc3545;
+    --school-purple: #6f42c1;
+    --light-blue: #E8F4FD;
+    --warm-white: #FEFEFE;
+    --dark-blue: #1E5F7A;
+    --success-green: #20c997;
+    --warning-orange: #FFA500;
+}
+
+/* Base Styles */
+body { 
+    background: linear-gradient(135deg, var(--light-blue) 0%, #F0F8FF 100%);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+}
+
+/* Navigation */
+.navbar { 
+    background: linear-gradient(135deg, var(--school-blue) 0%, var(--dark-blue) 100%);
+    box-shadow: 0 4px 15px rgba(46, 134, 171, 0.3);
+    border: none;
+}
+
+.navbar-brand {
+    font-weight: 700;
+    font-size: 1.4rem;
+    color: white !important;
+}
+
+.navbar-nav .nav-link {
+    color: rgba(255, 255, 255, 0.9) !important;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.navbar-nav .nav-link:hover {
+    color: white !important;
+    transform: translateY(-1px);
+}
+
+/* Cards */
+.card { 
+    border: none; 
+    border-radius: 20px; 
+    box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+    transition: all 0.3s ease;
+    background: var(--warm-white);
+    overflow: hidden;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.12);
+}
+
+.card-header {
+    background: linear-gradient(135deg, var(--school-blue) 0%, var(--dark-blue) 100%);
+    color: white;
+    border-radius: 20px 20px 0 0 !important;
+    padding: 1.5rem;
+    font-weight: 600;
+    border: none;
+}
+
+.card-body {
+    padding: 2rem;
+}
+
+/* Statistics Cards */
+.stat-card { 
+    border: none;
+    border-radius: 20px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+    transition: all 0.3s ease;
+    overflow: hidden;
+    position: relative;
+    background: white;
+}
+
+.stat-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(135deg, var(--school-blue) 0%, var(--dark-blue) 100%);
+}
+
+.stat-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+}
+
+.stat-card .card-body {
+    padding: 1.5rem;
+}
+
+/* Background Colors for Stats */
+.bg-success {
+    background: linear-gradient(135deg, var(--school-green) 0%, var(--success-green) 100%) !important;
+    color: white;
+}
+
+.bg-warning {
+    background: linear-gradient(135deg, var(--school-orange) 0%, var(--warning-orange) 100%) !important;
+    color: white !important;
+}
+
+.bg-info {
+    background: linear-gradient(135deg, var(--school-blue) 0%, #17a2b8 100%) !important;
+    color: white;
+}
+
+.bg-danger {
+    background: linear-gradient(135deg, var(--school-red) 0%, #c82333 100%) !important;
+    color: white;
+}
+
+.bg-primary {
+    background: linear-gradient(135deg, var(--school-blue) 0%, var(--dark-blue) 100%) !important;
+    color: white;
+}
+
+/* Buttons */
+.btn {
+    border-radius: 25px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border: none;
+    padding: 12px 25px;
+}
+
+.btn-primary { 
+    background: linear-gradient(135deg, var(--school-blue) 0%, var(--dark-blue) 100%);
+    border: none;
+}
+
+.btn-primary:hover {
+    background: linear-gradient(135deg, var(--dark-blue) 0%, var(--school-blue) 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(46, 134, 171, 0.4);
+}
+
+.btn-success {
+    background: linear-gradient(135deg, var(--school-green) 0%, var(--success-green) 100%);
+}
+
+.btn-success:hover {
+    background: linear-gradient(135deg, var(--success-green) 0%, var(--school-green) 100%);
+    transform: translateY(-2px);
+}
+
+.btn-warning {
+    background: linear-gradient(135deg, var(--school-orange) 0%, var(--warning-orange) 100%);
+    border: none;
+    color: white;
+}
+
+.btn-warning:hover {
+    background: linear-gradient(135deg, var(--warning-orange) 0%, var(--school-orange) 100%);
+    color: white;
+    transform: translateY(-2px);
+}
+
+.btn-danger {
+    background: linear-gradient(135deg, var(--school-red) 0%, #c82333 100%);
+    border: none;
+}
+
+.btn-danger:hover {
+    background: linear-gradient(135deg, #c82333 0%, var(--school-red) 100%);
+    transform: translateY(-2px);
+}
+
+.btn-outline-secondary {
+    border-color: var(--school-blue);
+    color: var(--school-blue);
+    border-radius: 20px;
+}
+
+.btn-outline-secondary:hover {
+    background: var(--school-blue);
+    border-color: var(--school-blue);
+    color: white;
+}
+
+.btn-group .btn {
+    border-radius: 20px;
+    margin: 0 3px;
+    padding: 8px 15px;
+}
+
+/* Badges */
+.badge {
+    border-radius: 20px;
+    padding: 8px 15px;
+    font-weight: 500;
+    font-size: 0.85rem;
+}
+
+.badge.bg-danger {
+    background: linear-gradient(135deg, var(--school-red) 0%, #c82333 100%) !important;
+}
+
+.badge.bg-primary {
+    background: linear-gradient(135deg, var(--school-blue) 0%, var(--dark-blue) 100%) !important;
+}
+
+.badge.bg-info {
+    background: linear-gradient(135deg, #17a2b8 0%, #138496 100%) !important;
+}
+
+.badge.bg-warning {
+    background: linear-gradient(135deg, var(--school-orange) 0%, var(--warning-orange) 100%) !important;
+    color: white !important;
+}
+
+.badge.bg-success {
+    background: linear-gradient(135deg, var(--school-green) 0%, var(--success-green) 100%) !important;
+}
+
+.badge.bg-secondary {
+    background: linear-gradient(135deg, #6c757d 0%, #5a6268 100%) !important;
+}
+
+/* Tables */
+.table {
+    border-radius: 15px;
+    overflow: hidden;
+    background: white;
+    margin-bottom: 0;
+}
+
+.table thead th {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    border: none;
+    font-weight: 600;
+    color: var(--school-blue);
+    padding: 1rem;
+}
+
+.table tbody tr {
+    transition: all 0.3s ease;
+}
+
+.table tbody tr:hover {
+    background: linear-gradient(135deg, var(--light-blue) 0%, #f8f9fa 100%);
+    transform: scale(1.01);
+}
+
+.table-responsive {
+    border-radius: 15px;
+}
+
+/* Forms */
+.form-control, .form-select {
+    border-radius: 15px;
+    border: 2px solid #e9ecef;
+    padding: 12px 20px;
+    transition: all 0.3s ease;
+}
+
+.form-control:focus, .form-select:focus {
+    border-color: var(--school-blue);
+    box-shadow: 0 0 0 0.2rem rgba(46, 134, 171, 0.25);
+}
+
+.form-label {
+    font-weight: 600;
+    color: var(--school-blue);
+    margin-bottom: 0.5rem;
+}
+
+/* Alerts */
+.alert {
+    border-radius: 15px;
+    border: none;
+    padding: 1rem 1.5rem;
+}
+
+.alert-success {
+    background: linear-gradient(135deg, rgba(40, 167, 69, 0.1) 0%, rgba(32, 201, 151, 0.1) 100%);
+    border-left: 4px solid var(--school-green);
+    color: var(--school-green);
+}
+
+.alert-danger {
+    background: linear-gradient(135deg, rgba(220, 53, 69, 0.1) 0%, rgba(200, 35, 51, 0.1) 100%);
+    border-left: 4px solid var(--school-red);
+    color: var(--school-red);
+}
+
+.alert-warning {
+    background: linear-gradient(135deg, rgba(241, 143, 1, 0.1) 0%, rgba(255, 165, 0, 0.1) 100%);
+    border-left: 4px solid var(--school-orange);
+    color: var(--school-orange);
+}
+
+.alert-info {
+    background: linear-gradient(135deg, rgba(46, 134, 171, 0.1) 0%, rgba(23, 162, 184, 0.1) 100%);
+    border-left: 4px solid var(--school-blue);
+    color: var(--school-blue);
+}
+
+/* Modals */
+.modal-content {
+    border-radius: 20px;
+    border: none;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+}
+
+.modal-header {
+    background: linear-gradient(135deg, var(--school-blue) 0%, var(--dark-blue) 100%);
+    color: white;
+    border-radius: 20px 20px 0 0;
+    border: none;
+}
+
+.modal-footer {
+    border: none;
+    padding: 1.5rem;
+}
+
+/* Container */
+.container-fluid {
+    padding: 2rem;
+}
+
+/* Page Titles */
+.page-title {
+    background: linear-gradient(135deg, var(--school-blue) 0%, var(--dark-blue) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-weight: 700;
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+}
+
+/* Search Container */
+.search-container {
+    background: white;
+    border-radius: 20px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+    position: relative;
+    overflow: hidden;
+}
+
+.search-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(135deg, var(--school-orange) 0%, var(--warning-orange) 100%);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .container-fluid {
+        padding: 1rem;
+    }
+    
+    .card-body {
+        padding: 1.5rem;
+    }
+    
+    .btn {
+        padding: 10px 20px;
+        font-size: 0.9rem;
+    }
+    
+    .page-title {
+        font-size: 2rem;
+    }
+}
+
+/* Animation Classes */
+.fade-in {
+    animation: fadeIn 0.5s ease-in;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.slide-up {
+    animation: slideUp 0.3s ease-out;
+}
+
+@keyframes slideUp {
+    from { transform: translateY(10px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+/* Sidebar Styles for Dashboard */
+.sidebar {
+    background: white;
+    min-height: calc(100vh - 76px);
+    box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+    border-radius: 0 20px 20px 0;
+}
+
+.sidebar .nav-link {
+    color: var(--school-blue);
+    padding: 12px 20px;
+    border-radius: 15px;
+    margin: 5px 10px;
+    transition: all 0.3s ease;
+    font-weight: 500;
+}
+
+.sidebar .nav-link:hover {
+    background: linear-gradient(135deg, var(--light-blue) 0%, rgba(46, 134, 171, 0.1) 100%);
+    color: var(--dark-blue);
+    transform: translateX(5px);
+}
+
+.sidebar .nav-link.active {
+    background: linear-gradient(135deg, var(--school-blue) 0%, var(--dark-blue) 100%);
+    color: white;
+    box-shadow: 0 4px 15px rgba(46, 134, 171, 0.3);
+}
+
+.sidebar .nav-link i {
+    width: 20px;
+    text-align: center;
+    margin-right: 10px;
+}
+
+/* Custom Utilities */
+.shadow-custom {
+    box-shadow: 0 8px 25px rgba(0,0,0,0.08) !important;
+}
+
+.rounded-custom {
+    border-radius: 20px !important;
+}
+
+.text-school-blue {
+    color: var(--school-blue) !important;
+}
+
+.bg-school-blue {
+    background: linear-gradient(135deg, var(--school-blue) 0%, var(--dark-blue) 100%) !important;
+    color: white !important;
+}
