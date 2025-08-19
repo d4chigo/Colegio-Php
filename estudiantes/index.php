@@ -8,14 +8,18 @@ $database = new Database();
 $conn = $database->getConnection();
 
 // Procesar eliminación
-if (isset($_GET['delete'])) {
-    $cedula = $_GET['delete'];
-    $stmt = $conn->prepare("DELETE FROM estudiantes WHERE cedula = :cedula");
-    $stmt->bindParam(':cedula', $cedula);
-    if ($stmt->execute()) {
-        $success = "Estudiante eliminado correctamente";
-    } else {
-        $error = "Error al eliminar el estudiante";
+if (isset($_POST['eliminar_estudiante']) && $auth->hasRole(['admin'])) {
+    $cedula = $_POST['eliminar_id'];
+    
+    try {
+        $stmt = $conn->prepare("DELETE FROM estudiantes WHERE cedula = :cedula");
+        $stmt->bindParam(':cedula', $cedula);
+        
+        if ($stmt->execute()) {
+            $success = "Estudiante eliminado correctamente";
+        }
+    } catch (PDOException $e) {
+        $error = "Error al eliminar el estudiante: " . $e->getMessage();
     }
 }
 
@@ -164,19 +168,16 @@ $estudiantes = $stmt->fetchAll();
                                         </td>
                                         <td>
                                             <div class="btn-group btn-group-sm">
-                                                <a href="ver.php?cedula=<?php echo $estudiante['cedula']; ?>" 
-                                                   class="btn btn-info" title="Ver">
-                                                    <i class="fas fa-eye"></i>
-                                                </a>
-                                                <a href="editar.php?cedula=<?php echo $estudiante['cedula']; ?>" 
+                                                <a href="editar.php?id=<?php echo $estudiante['cedula']; ?>" 
                                                    class="btn btn-warning" title="Editar">
                                                     <i class="fas fa-edit"></i>
                                                 </a>
-                                                <a href="?delete=<?php echo $estudiante['cedula']; ?>" 
-                                                   class="btn btn-danger" title="Eliminar"
-                                                   onclick="return confirm('¿Está seguro de eliminar este estudiante?')">
+                                                <?php if ($auth->hasRole(['admin'])): ?>
+                                                <button type="button" class="btn btn-danger" title="Eliminar" 
+                                                        onclick="confirmarEliminacion('<?php echo $estudiante['cedula']; ?>')">
                                                     <i class="fas fa-trash"></i>
-                                                </a>
+                                                </button>
+                                                <?php endif; ?>
                                             </div>
                                         </td>
                                     </tr>
@@ -199,6 +200,35 @@ $estudiantes = $stmt->fetchAll();
         </div>
     </div>
 
+    <!-- Modal de confirmación para eliminar -->
+    <div class="modal fade" id="modalEliminar" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Confirmar Eliminación</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <p>¿Está seguro de que desea eliminar este estudiante?</p>
+                    <p class="text-danger"><strong>Esta acción no se puede deshacer.</strong></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <form method="POST" id="formEliminar" class="d-inline">
+                        <input type="hidden" name="eliminar_id" id="eliminarId">
+                        <button type="submit" name="eliminar_estudiante" class="btn btn-danger">Eliminar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function confirmarEliminacion(cedula) {
+            document.getElementById('eliminarId').value = cedula;
+            new bootstrap.Modal(document.getElementById('modalEliminar')).show();
+        }
+    </script>
 </body>
 </html>

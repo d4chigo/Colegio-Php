@@ -7,15 +7,16 @@ USE colegio_sistema;
 
 -- Tabla de usuarios para autenticación
 CREATE TABLE IF NOT EXISTS usuarios (
-    id INT AUTO_INCREMENT PRIMARY KEY,
+    id_usuario INT AUTO_INCREMENT PRIMARY KEY,
     username VARCHAR(50) UNIQUE NOT NULL,
     email VARCHAR(100) UNIQUE NOT NULL,
-    password_hash VARCHAR(255) NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    nombre VARCHAR(100),
     rol ENUM('admin', 'profesor', 'secretaria', 'contador') DEFAULT 'secretaria',
-    activo BOOLEAN DEFAULT TRUE,
+    estado ENUM('Activo', 'Inactivo') DEFAULT 'Activo',
     ultimo_acceso TIMESTAMP NULL,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+    fecha_creacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    fecha_actualizacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
 -- Tabla de personal
@@ -80,7 +81,8 @@ CREATE TABLE IF NOT EXISTS aulas (
 
 -- Tabla de cursos
 CREATE TABLE IF NOT EXISTS cursos (
-    codigo VARCHAR(20) PRIMARY KEY,
+    id_curso INT AUTO_INCREMENT PRIMARY KEY,
+    codigo VARCHAR(20) UNIQUE NOT NULL,
     nombre VARCHAR(200) NOT NULL,
     descripcion TEXT,
     nivel ENUM('Preescolar', 'Primaria', 'Secundaria', 'Media') NOT NULL,
@@ -105,7 +107,7 @@ CREATE TABLE IF NOT EXISTS cursos (
 CREATE TABLE IF NOT EXISTS matriculas (
     id_matricula INT AUTO_INCREMENT PRIMARY KEY,
     estudiante_id VARCHAR(20) NOT NULL,
-    curso_codigo VARCHAR(20) NOT NULL,
+    curso_id INT NOT NULL,
     periodo_escolar VARCHAR(20) NOT NULL,
     jornada ENUM('Mañana', 'Tarde', 'Noche', 'Completa') DEFAULT 'Mañana',
     modalidad ENUM('Presencial', 'Virtual', 'Híbrida') DEFAULT 'Presencial',
@@ -115,7 +117,7 @@ CREATE TABLE IF NOT EXISTS matriculas (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     FOREIGN KEY (estudiante_id) REFERENCES estudiantes(cedula) ON DELETE CASCADE,
-    FOREIGN KEY (curso_codigo) REFERENCES cursos(codigo) ON DELETE CASCADE
+    FOREIGN KEY (curso_id) REFERENCES cursos(id_curso) ON DELETE CASCADE
 );
 
 -- Tabla de cobros
@@ -140,11 +142,11 @@ CREATE TABLE IF NOT EXISTS cobros (
 );
 
 -- Insertar usuarios de prueba
-INSERT INTO usuarios (username, email, password_hash, rol) VALUES 
-('admin', 'admin@colegio.com', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'admin'),
-('secretaria', 'secretaria@colegio.com', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'secretaria'),
-('contador', 'contador@colegio.com', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'contador'),
-('profesor', 'profesor@colegio.com', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'profesor');
+INSERT INTO usuarios (username, email, password, nombre, rol) VALUES 
+('admin', 'admin@colegio.com', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'Administrador', 'admin'),
+('secretaria', 'secretaria@colegio.com', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'Secretaria General', 'secretaria'),
+('contador', 'contador@colegio.com', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'Contador Principal', 'contador'),
+('profesor', 'profesor@colegio.com', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'Profesor de Prueba', 'profesor');
 
 -- Insertar datos de ejemplo
 INSERT INTO aulas (numero, nombre, edificio, piso, capacidad_estudiantes, tipo_aula) VALUES

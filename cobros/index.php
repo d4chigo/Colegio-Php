@@ -7,6 +7,22 @@ $auth->requireRole(['admin', 'contador', 'secretaria']);
 $database = new Database();
 $conn = $database->getConnection();
 
+// Procesar eliminación de cobro
+if (isset($_POST['eliminar_cobro']) && $auth->hasRole(['admin'])) {
+    $id_eliminar = $_POST['eliminar_id'];
+    
+    try {
+        $stmt = $conn->prepare("DELETE FROM cobros WHERE id_cobro = :id");
+        $stmt->bindParam(':id', $id_eliminar);
+        
+        if ($stmt->execute()) {
+            $success = "Cobro eliminado correctamente";
+        }
+    } catch (PDOException $e) {
+        $error = "Error al eliminar el cobro: " . $e->getMessage();
+    }
+}
+
 // Procesar cambio de estado de cobro
 if (isset($_POST['cambiar_estado'])) {
     $id_cobro = $_POST['id_cobro'];
@@ -263,6 +279,12 @@ $stats['total_pendiente'] = $conn->query("SELECT COALESCE(SUM(monto), 0) FROM co
                                                    class="btn btn-warning" title="Editar">
                                                     <i class="fas fa-edit"></i>
                                                 </a>
+                                                <?php if ($auth->hasRole(['admin'])): ?>
+                                                <button type="button" class="btn btn-danger" title="Eliminar" 
+                                                        onclick="confirmarEliminacion(<?php echo $cobro['id_cobro']; ?>)">
+                                                    <i class="fas fa-trash"></i>
+                                                </button>
+                                                <?php endif; ?>
                                             </div>
                                         </td>
                                     </tr>
@@ -285,6 +307,35 @@ $stats['total_pendiente'] = $conn->query("SELECT COALESCE(SUM(monto), 0) FROM co
         </div>
     </div>
 
+    <!-- Modal de confirmación para eliminar -->
+    <div class="modal fade" id="modalEliminar" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Confirmar Eliminación</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <p>¿Está seguro de que desea eliminar este cobro?</p>
+                    <p class="text-danger"><strong>Esta acción no se puede deshacer.</strong></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <form method="POST" id="formEliminar" class="d-inline">
+                        <input type="hidden" name="eliminar_id" id="eliminarId">
+                        <button type="submit" name="eliminar_cobro" class="btn btn-danger">Eliminar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function confirmarEliminacion(id) {
+            document.getElementById('eliminarId').value = id;
+            new bootstrap.Modal(document.getElementById('modalEliminar')).show();
+        }
+    </script>
 </body>
 </html>
